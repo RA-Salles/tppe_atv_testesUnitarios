@@ -1,0 +1,3 @@
+/home/redoctober/Documents/academic/s_stuff/tppe/exercises/calc_test/CMakeFiles/calc.dir
+/home/redoctober/Documents/academic/s_stuff/tppe/exercises/calc_test/CMakeFiles/edit_cache.dir
+/home/redoctober/Documents/academic/s_stuff/tppe/exercises/calc_test/CMakeFiles/rebuild_cache.dir

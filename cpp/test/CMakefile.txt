@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 4.2)
+project(test_agrocoop)
+add_executable(test_agrocoop)
+target_sources(test_agrocoop
+    PRIVATE    
+    test_calculator.cpp
+)

@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 4.2)
+project(agrocoop)
+add_executable(agrocoop)
+target_sources(agrocoop
+    PRIVATE    
+    agrocoop.cpp
+)
