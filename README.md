@@ -153,9 +153,12 @@ GDB para *debuggar* projeto.
 
 cmake como gerente de configuração. Será possivelmente complicado elaborar os arquivos de build, mas creio que valerá a pena para rápido desenvolvimento.
 
+Make para realizar o processo de build. 
+
 git para gerenciar repositórios e github para hospedá-los.
 
 Boost.test para a área de testes unitários.
+
 # Executando o projeto
 Nosso pacote depende da Standard Library, cujos arquivos estão presentes em qualquer instalação do g++, e da biblioteca Boost. Ademais, depende de uma instalação do make e cmake.
 
@@ -179,3 +182,4 @@ Como nosso projeto, que está dentro da pasta cpp/, utiliza a biblioteca Boost.t
 `sudo apt install libboost-test-dev`
 
 Esse comando enfileirará para instalação demais depedências da biblioteca. 
+

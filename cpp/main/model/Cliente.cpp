@@ -1,9 +1,14 @@
-package fga0242.model;
+export module fga0242.model;
 
-public class Cliente {
+import std;
+
+
+class Cliente {
 
     private final String nome;
     private final TipoCliente tipo;
+
+
 
     public Cliente(String nome, TipoCliente tipo) {
         this.nome = nome;
@@ -17,4 +22,4 @@ public class Cliente {
     public TipoCliente getTipo() {
         return tipo;
     }
-}
+};
