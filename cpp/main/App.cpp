@@ -1,4 +1,4 @@
-#include <iostream>
+#include "common/imports.hpp"
 
 int main(){
     std::cout << "I'm not a big fan of the government\n";
