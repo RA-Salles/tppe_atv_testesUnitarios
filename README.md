@@ -149,11 +149,11 @@ a mesma tupla, por exemplo:
 
 Inspecionada o sistema inicialmente em java, observa-se que será possível alterá-lo sem grandes dificuldades em relação à sintaxe do cpp. Poderemos utilizar cpp nesse projeto, portanto.
 
-GDB para *debuggar* projeto. 
+GDB para *debuggar* projeto.
 
 cmake como gerente de configuração. Será possivelmente complicado elaborar os arquivos de build, mas creio que valerá a pena para rápido desenvolvimento.
 
-Make para realizar o processo de build. 
+Make para realizar o processo de build.
 
 git para gerenciar repositórios e github para hospedá-los.
 
@@ -182,4 +182,11 @@ Como nosso projeto, que está dentro da pasta cpp/, utiliza a biblioteca Boost.t
 `sudo apt install libboost-test-dev`
 
 Esse comando enfileirará para instalação demais depedências da biblioteca. 
+
+## Instalando 
+
+# Arquitetura do problema
+
+Inicialmente, nosso plano seria utilizar a funcionalidade de módulos do cpp, mas isso exigiria compreender o mínimo de como utilizá-la e as restrições de tempo não permitem esse feito.
+
 
