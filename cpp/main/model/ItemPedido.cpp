@@ -1,28 +1,13 @@
-export module fga0242;
+#include "model.hpp"
 
-export class ItemPedido {
+using namespace fga0242::model;
 
-    private final Produto produto;
-    private final int quantidade;
-
-    public ItemPedido(Produto produto, int quantidade) {
-        this.produto = produto;
-        this.quantidade = quantidade;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public double getSubtotal() {
-        return produto.getPrecoUnitario() * quantidade;
-    }
-
-    public double getPesoTotal() {
-        return produto.getPesoKg() * quantidade;
-    }
+ItemPedido::ItemPedido(Produto &produto, int quantidade){
+    this->produto = produto;
+    this->quantidade = quantidade;
 }
+
+Produto ItemPedido::getProduto()    { return produto;                                 }
+int     ItemPedido::getQuantidade() { return quantidade;                              }
+double  ItemPedido::getSubtotal()   { return produto.getPrecoUnitario() * quantidade; }
+double  ItemPedido::getPesoTotal()  { return produto.getPesoKg() * quantidade;        }

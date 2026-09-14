@@ -1,46 +1,30 @@
-package fga0242.model;
+#include "model.hpp"
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+using namespace fga0242::model;
 
-public class Pedido {
+        
+Pedido::Pedido(Cliente &cliente, std::list<ItemPedido> &itens, std::string &regiaoEntrega) {
+    this->cliente       = cliente;
+    this->itens         = itens; //why are we trying to keep this as a pointer, wtf?
+    this->regiaoEntrega = regiaoEntrega;
+}
 
-    private final Cliente cliente;
-    private final List<ItemPedido> itens;
-    private final String regiaoEntrega; // "DF", "GO", "OUTROS"
+Cliente                     Pedido::getCliente()       { return cliente; }
+const std::list<ItemPedido> Pedido::getItens()         { return std::list<ItemPedido>(this->itens); }
+std::string                 Pedido::getRegiaoEntrega() { return regiaoEntrega; }
 
-    public Pedido(Cliente cliente, List<ItemPedido> itens, String regiaoEntrega) {
-        this.cliente = cliente;
-        this.itens = new ArrayList<>(itens);
-        this.regiaoEntrega = regiaoEntrega;
-    }
+double Pedido::getValorTotalProdutos() {
+    double total = 0.0;
+    for (ItemPedido item : itens) {
+        total += item.getSubtotal();
+    } 
+    return total;
+}
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public List<ItemPedido> getItens() {
-        return Collections.unmodifiableList(itens);
-    }
-
-    public String getRegiaoEntrega() {
-        return regiaoEntrega;
-    }
-
-    public double getValorTotalProdutos() {
-        double total = 0.0;
-        for (ItemPedido item : itens) {
-            total += item.getSubtotal();
-        }
-        return total;
-    }
-
-    public double getPesoTotal() {
-        double peso = 0.0;
-        for (ItemPedido item : itens) {
-            peso += item.getPesoTotal();
-        }
-        return peso;
-    }
+double Pedido::getPesoTotal() {
+    double peso = 0.0;
+    for (auto item : itens){
+        peso += item.getPesoTotal();
+    } 
+    return peso;
 }

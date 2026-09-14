@@ -1,25 +1,19 @@
-export module fga0242.model;
+#include "model.hpp"
 
-import std;
+using namespace fga0242::model;
 
-
-class Cliente {
-
-    private final String nome;
-    private final TipoCliente tipo;
-
-
-
-    public Cliente(String nome, TipoCliente tipo) {
-        this.nome = nome;
-        this.tipo = tipo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public TipoCliente getTipo() {
-        return tipo;
-    }
+Cliente::Cliente(std::string &nome, TipoCliente tipo) {
+    this->nome = nome;
+    this->tipo = tipo;
 };
+
+//now we can do cliente1 = cliente2. Very good!
+Cliente& Cliente::operator=(Cliente &outro){
+    if(this == &outro)
+        return *this;
+    this->nome = outro.nome;
+    this->tipo = outro.tipo;
+    return *this;
+}
+std::string Cliente::getNome()      { return this->nome; };
+enum TipoCliente Cliente::getTipo() { return this->tipo; };

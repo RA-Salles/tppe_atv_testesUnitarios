@@ -1,38 +1,48 @@
-export module fga0242.model;
+#include "../common/imports.hpp"
+#include "model.hpp"
+using namespace fga0242::model;
 
-export public class Produto {
+//inicialização é mais complicadinha...
 
-    private final String id;
-    private final String nome;
-    private final String categoria; // "HORTIFRUTI", "GRAOS", "LATICINIOS", "INSUMOS"
-    private final double precoUnitario;
-    private final double pesoKg;
+Produto::Produto(std::string &id       , std::string &nome   ,
+                 std::string &categoria, double precoUnitario,
+                 double pesoKg):
+                 id           {id           },
+                 nome         {nome         },
+                 categoria    {categoria    },
+                 precoUnitario{precoUnitario},
+                 pesoKg       {pesoKg       } {
 
-    public Produto(String id, String nome, String categoria, double precoUnitario, double pesoKg) {
-        this.id = id;
-        this.nome = nome;
-        this.categoria = categoria;
-        this.precoUnitario = precoUnitario;
-        this.pesoKg = pesoKg;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public double getPrecoUnitario() {
-        return precoUnitario;
-    }
-
-    public double getPesoKg() {
-        return pesoKg;
-    }
 }
+
+//WHY IS THE ID A STRING!? 
+Produto::Produto(): 
+    id           {""},
+    nome         {""},
+    categoria    {""},
+    precoUnitario{0},
+    pesoKg       {0}{
+}
+
+//exemplo graciosamente encontrado na referência do cpp, cppreference
+Produto& Produto::operator=(const Produto &outro){
+    // Guard self assignment
+    if (this == &outro)
+        return *this;
+    
+    //copia valores;
+    this->categoria     = outro.categoria     ;
+    this->id            = outro.id            ;
+    this->nome          = outro.nome          ;
+    this->pesoKg        = outro.pesoKg        ;
+    this->precoUnitario = outro.precoUnitario ;
+
+    return *this;
+}
+
+
+std::string Produto::getId()            {return id;           }
+std::string Produto::getNome()          {return nome;         }
+std::string Produto::getCategoria()     {return categoria;    }
+double      Produto::getPrecoUnitario() {return precoUnitario;}
+double      Produto::getPesoKg()        {return pesoKg;       }
