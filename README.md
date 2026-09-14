@@ -1,14 +1,24 @@
+# Atividade de Testes Unitários
+
 UnB -- Universidade de Brasilia   
 FCTE -- Faculdade Ciência e Tecnologia em Engenharias  
 FGA0242 -- Técnicas de Programação para Plataformas Emergentes   
 
-Metadados:
+Objetivos gerais:
+- realizar transpile das classes do projeto de referência
+- verificar compilação da implementação
+- configurar projeto e cmake
+- escrever testes com o Boost
+- Realizar testes segundo especificação.
 
-Ryan Augusto Brandão Salles
-221008436
+Metadados:
+- Ryan Augusto Brandão Salles
+- 221008436
 
 ---
 
+
+# Especificação da atividade:
 
 ### Atividade extra-classe -- Testes Unitários com JUnit4
 
@@ -134,3 +144,38 @@ a mesma tupla, por exemplo:
 - Releia o Javadoc de `AplicadorDesconto` antes de montar as tuplas do
   R7 -- todas as regras de negócio que sua tabela de dados precisa
   cobrir já estão descritas ali.
+
+# Techstack
+
+Inspecionada o sistema inicialmente em java, observa-se que será possível alterá-lo sem grandes dificuldades em relação à sintaxe do cpp. Poderemos utilizar cpp nesse projeto, portanto.
+
+GDB para *debuggar* projeto. 
+
+cmake como gerente de configuração. Será possivelmente complicado elaborar os arquivos de build, mas creio que valerá a pena para rápido desenvolvimento.
+
+git para gerenciar repositórios e github para hospedá-los.
+
+Boost.test para a área de testes unitários.
+# Executando o projeto
+Nosso pacote depende da Standard Library, cujos arquivos estão presentes em qualquer instalação do g++, e da biblioteca Boost. Ademais, depende de uma instalação do make e cmake.
+
+Esse projeto possui compatibilidade apenas em um sistema Ubuntu 26.04, todavia, o autor especula que não possuirá problemas para ser compilado em qualquer sistema que tenha o g++. Instruções para instalação de outros sistemas não serão providas.
+
+## Instalando o g++
+
+Utilizaremos o g++ como nosso compilador nesse projeto.
+Execute:
+
+`sudo apt install g++`
+
+e, para confirmar correta instalação, execute:
+
+`g++ --version`
+
+## Instalando o Boost.test
+
+Como nosso projeto, que está dentro da pasta cpp/, utiliza a biblioteca Boost.test para escrita dos testes unitários, será necessário instalá-la como dependência. Execute:
+
+`sudo apt install libboost-test-dev`
+
+Esse comando enfileirará para instalação demais depedências da biblioteca. 
