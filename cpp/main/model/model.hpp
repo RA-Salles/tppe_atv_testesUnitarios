@@ -1,4 +1,6 @@
 //#include "TipoCliente.hpp" //unused file kept for parity sake!
+#pragma once
+
 #include "../common/imports.hpp"
 
 

@@ -1,7 +1,4 @@
-#ifndef IMPORTS_HPP
-#define IMPORTS_HPP
-#endif
-
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -13,3 +10,5 @@
 #include <list>
 #include <cstring>
 #include <functional>
+
+#pragma once
