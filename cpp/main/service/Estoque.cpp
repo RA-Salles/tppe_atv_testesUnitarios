@@ -1,42 +1,46 @@
-package fga0242.service;
+#include "service.hpp"
 
-import java.util.HashMap;
-import java.util.Map;
-
-import fga0242.model.Produto;
+using namespace fga0242::model;
+using namespace fga0242::service;
 
 
-/**
- * Controla a quantidade disponível de cada produto no armazém
- * da cooperativa.
- */
-public class Estoque {
-
-    private final Map<String, Integer> quantidadesPorProduto;
-
-    public Estoque() {
-        this.quantidadesPorProduto = new HashMap<>();
+void Estoque::repor(Produto &produto, int quantidade) {
+    //if product not found, register
+    if(quantidadesPorProduto.find(produto.getId()) == quantidadesPorProduto.end()){
+        quantidadesPorProduto[produto.getId()] = quantidade;
+    }else{ // go ahead and add it to what we got...
+        quantidadesPorProduto[produto.getId()] += quantidade;
     }
+}
 
-    public void repor(Produto produto, int quantidade) {
-        quantidadesPorProduto.merge(produto.getId(), quantidade, Integer::sum);
-    }
+//other code was the dirtiest nastiest object oriented slop I've ever seen.
+// ACCESS IT WITH OPERATOR[] AND BE DONE! BE... GONE!!
 
-    public int consultarQuantidade(Produto produto) {
-        return quantidadesPorProduto.getOrDefault(produto.getId(), 0);
-    }
+/*
+    interface of access to internal map. 
+    Accesses product's registered id.
+*/
+int Estoque::consultarQuantidade(Produto &produto) {
+    return quantidadesPorProduto[produto.getId()];
+}
 
-    /**
-     * Reserva a quantidade solicitada de um produto para um pedido.
-     *
-     * @throws EstoqueInsuficienteException caso a quantidade disponível
-     *         seja menor que a solicitada.
-     */
-    public void reservar(Produto produto, int quantidadeSolicitada) {
-        int disponivel = consultarQuantidade(produto);
-        if (quantidadeSolicitada > disponivel) {
-            throw new EstoqueInsuficienteException(produto.getId(), quantidadeSolicitada, disponivel);
-        }
-        quantidadesPorProduto.put(produto.getId(), disponivel - quantidadeSolicitada);
+/** 
+Reserva a quantidade solicitada de um produto para um pedido.
+
+    @throws EstoqueInsuficienteException caso a quantidade disponível
+        seja menor que a solicitada.
+
+
+    @related test this documentation style
+*/
+void Estoque::reservar(Produto &produto, int quantidadeSolicitada) {
+    int disponivel = consultarQuantidade(produto);
+    if (quantidadeSolicitada > disponivel) {
+        // EstoqueInsuficienteException( std::string &produtoId, int solicitado, int disponivel)
+        auto err = EstoqueInsuficienteException(produto.getId(), 1, 2);
+        throw err;
+        //throw fga0242::service::EstoqueInsuficienteException(produto.getId(), quantidadeSolicitada, disponivel);
     }
+    
+    quantidadesPorProduto[produto.getId()] = disponivel - quantidadeSolicitada;
 }

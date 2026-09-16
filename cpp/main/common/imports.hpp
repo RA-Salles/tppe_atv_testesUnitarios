@@ -6,3 +6,5 @@
 #include <queue>
 #include <exception>
 #include <list>
+#include <cstring>
+#include <functional>

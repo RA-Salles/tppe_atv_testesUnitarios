@@ -1,8 +1,1 @@
-package fga0242.service;
-
-public class PedidoInvalidoException extends RuntimeException {
-
-    public PedidoInvalidoException(String motivo) {
-        super(motivo);
-    }
-}
+//kept for completion sake, actual definition of such a simple class sits inside service.hpp;
