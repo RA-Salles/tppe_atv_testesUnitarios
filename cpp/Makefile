@@ -52,7 +52,7 @@ calc.o: setup ./main/service/CalculadoraFrete.cpp
 	$(CXX) $(CXXFLAGS) -c ./main/service/CalculadoraFrete.cpp -o ./obj/calc.o
 
 stock.o: setup ./main/service/Estoque.cpp
-	$(CXX) $(CXXFLAGS) -c ./main/service/Estoque.cpp -o ./obj/stock.onnn
+	$(CXX) $(CXXFLAGS) -c ./main/service/Estoque.cpp -o ./obj/stock.o
 
 stockexc.o: setup ./main/service/EstoqueInsuficienteException.cpp
 	$(CXX) $(CXXFLAGS) -c ./main/service/EstoqueInsuficienteException.cpp -o ./obj/stockexc.o
