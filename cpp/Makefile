@@ -15,15 +15,62 @@ TARGET = app
 # For deleting the target
 TARGET_DEL = app
 
-all: app clear
+OBJS = ./obj/app.o ./obj/client.o ./obj/item.o ./obj/order.o ./obj/product.o ./obj/discount.o ./obj/calc.o ./obj/stock.o ./obj/stockexc.o ./obj/orderexc.o ./obj/orderservice.o
 
-app: ./obj/App.o ./
-	$(CXX) $(CXXFLAGS) -o app ./objs/*
+all: setup app clear
 
+app: obj 
+	$(CXX) $(CXXFLAGS) -o app $(OBJS)
+
+setup:
+	mkdir -p obj
+
+obj: setup app.o client.o item.o order.o product.o discount.o calc.o stock.o stockexc.o orderexc.o orderservice.o
+
+#main object
+app.o: setup ./main/App.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/App.cpp -o ./obj/app.o
+
+#model objects
+client.o: setup ./main/model/Cliente.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/model/Cliente.cpp -o ./obj/client.o
+
+item.o: setup ./main/model/ItemPedido.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/model/ItemPedido.cpp -o ./obj/item.o
+
+order.o: setup ./main/model/Pedido.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/model/Pedido.cpp -o ./obj/order.o
+
+product.o: setup ./main/model/Produto.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/model/Produto.cpp -o ./obj/product.o
+
+#service objects
+discount.o: setup ./main/service/AplicadorDesconto.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/service/AplicadorDesconto.cpp -o ./obj/discount.o
+
+calc.o: setup ./main/service/CalculadoraFrete.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/service/CalculadoraFrete.cpp -o ./obj/calc.o
+
+stock.o: setup ./main/service/Estoque.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/service/Estoque.cpp -o ./obj/stock.onnn
+
+stockexc.o: setup ./main/service/EstoqueInsuficienteException.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/service/EstoqueInsuficienteException.cpp -o ./obj/stockexc.o
+
+orderexc.o: setup ./main/service/PedidoInvalidoException.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/service/PedidoInvalidoException.cpp -o ./obj/orderexc.o
+
+orderservice.o: setup ./main/service/PedidoService.cpp
+	$(CXX) $(CXXFLAGS) -c ./main/service/PedidoService.cpp -o ./obj/orderservice.o
+
+clear: 
+	rm -r obj
+
+clean:
+	rm app
 
 
 
 #FUCKING BLACKMAGIC! which doesn't quite work...
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 
