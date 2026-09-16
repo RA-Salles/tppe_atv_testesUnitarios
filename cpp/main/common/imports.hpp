@@ -10,5 +10,6 @@
 #include <list>
 #include <cstring>
 #include <functional>
+#include <limits>
 
 #pragma once
