@@ -23,18 +23,26 @@ double AplicadorDesconto::calcularPercentualDesconto(const fga0242::model::TipoC
     }
 
     switch (tipoCliente) {
-        case fga0242::model::COOPERADO:
+        case fga0242::model::COOPERADO:{
             return valorTotalPedido >= 100.0 ? 0.10 : 0.0;
-        case fga0242::model::ATACADO:
+        }
+        break;
+        case fga0242::model::ATACADO:{
             if (valorTotalPedido >= 500.0) {
                 return 0.15;
             }
             return valorTotalPedido >= 100.0 ? 0.05 : 0.0;
-        case fga0242::model::VAREJO:
+            break;
+        }
+        case fga0242::model::VAREJO:{
             bool elegivel = !(CATEGORIA_HORTIFRUTI.compare(categoriaProduto)) && valorTotalPedido >= 200.0;
             return elegivel ? 0.05 : 0.0;
-        default:
+            break;
+        }
+        default:{
             return 0.0;
+            break;
+        }
     }
 }
 
