@@ -192,11 +192,25 @@ Esse comando enfileirará para instalação demais depedências da biblioteca.
 
 ## Compilando
 
+Arquivos de build foram configurados para ambos o programa principal e o exemplo em cpp (cuja autoria também é desse autor). 
 
+Para compilar o programa principal, execute
+
+`cd cpp`
+`make`
+
+e, para o exemplo, 
+
+`cd cpp-example`
+`cmake`
+`make`
 
 
 # Arquitetura do problema
 
+## Sistema de módulos
 Inicialmente, nosso plano seria utilizar a funcionalidade de módulos do cpp, mas isso exigiria compreender o mínimo de como utilizá-la e as restrições de tempo não permitem esse feito.
+Ademais, as explicações encontradas na referência da linguagem e exemplos da internet não foram muito esclarecedores de como corretamente utilizar o sistema.
 
+Portanto, nossa solução de importação será utilizar o sistema de headers. 
 
