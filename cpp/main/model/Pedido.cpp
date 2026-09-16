@@ -4,12 +4,12 @@ using namespace fga0242::model;
 
         
 Pedido::Pedido(Cliente &cliente, std::list<ItemPedido> &itens, std::string &regiaoEntrega) {
-    this->cliente       = cliente;
+    this->cliente       = &cliente;
     this->itens         = itens; //why are we trying to keep this as a pointer, wtf?
     this->regiaoEntrega = regiaoEntrega;
 }
 
-Cliente                     Pedido::getCliente()       { return cliente; }
+Cliente*                     Pedido::getCliente()       { return cliente; }
 const std::list<ItemPedido> Pedido::getItens()         { return std::list<ItemPedido>(this->itens); }
 std::string                 Pedido::getRegiaoEntrega() { return regiaoEntrega; }
 

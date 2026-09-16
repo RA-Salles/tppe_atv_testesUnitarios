@@ -1,3 +1,4 @@
+//kept for parity sake. Actual definition sits inside the header...
 
 /**
  * Perfis de cliente atendidos pela cooperativa AgroMart.
@@ -5,13 +6,4 @@
  * aplicadas no fechamento do pedido.
  */
 
-namespace fga0242::model{
-    enum TipoCliente {
-        COOPERADO,  // produtor associado à cooperativa
-        VAREJO,     // pequeno comerciante / consumidor final
-        ATACADO     // distribuidor / grande comprador
-    };
-    
-    
-}
 

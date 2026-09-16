@@ -1,5 +1,7 @@
 # model graciously provided by geeksforgeeks @ https://www.geeksforgeeks.org/cpp/makefile-in-c-and-its-applications/
 # yet I found it quite complex, so I'm explicitly writing the rules...
+#I'LL FUCKING DO IT BY HAND THAT'S IT!
+
 
 # Compiler
 CXX = g++
@@ -8,35 +10,20 @@ CXX = g++
 CXXFLAGS = -Wall -g
 
 # Target executable
-TARGET = main
+TARGET = app
 
 # For deleting the target
-TARGET_DEL = main.exe
+TARGET_DEL = app
 
-# Source files
-SRCS = main.cpp print.cpp factorial.cpp multiply.cpp
+all: app clear
 
-# Object files
-OBJS = $(SRCS:.cpp=.o)
+app: ./obj/App.o ./
+	$(CXX) $(CXXFLAGS) -o app ./objs/*
 
-# Default rule to build and run the executable
-all: $(TARGET) run
 
-# Rule to link object files into the target executable
 
-main: 
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
-
-# Rule to compile .cpp files into .o files
+#FUCKING BLACKMAGIC! which doesn't quite work...
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Rule to run the executable
-run: $(TARGET)
-	$(TARGET)
-
-# Clean rule to remove generated files
-clean:
-	del $(TARGET_DEL) $(OBJS)

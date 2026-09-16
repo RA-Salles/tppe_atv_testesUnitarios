@@ -1,7 +1,7 @@
 
 #include "service.hpp"
 
-
+using namespace fga0242::service;
 
 /**
  * Concentra as regras de desconto comercial da cooperativa AgroMart.
@@ -17,43 +17,33 @@
  *  RN04 - Cliente VAREJO recebe 5% de desconto apenas na categoria
  *         "HORTIFRUTI", quando o valor total do pedido é >= 200.0.
  */
-class AplicadorDesconto {
-    private:
-        std::string CATEGORIA_INSUMOS = "INSUMOS";
-        std::string CATEGORIA_HORTIFRUTI = "HORTIFRUTI";
+double AplicadorDesconto::calcularPercentualDesconto(const fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, const std::string &categoriaProduto) {
+    if (!CATEGORIA_INSUMOS.compare(categoriaProduto)) {
+        return 0.0;
+    }
 
-    /**
-     * Calcula o percentual de desconto (ex.: 0.10 = 10%) aplicável a um
-     * pedido, de acordo com o tipo de cliente, o valor total do pedido
-     * e a categoria predominante dos produtos.
-     */
-    public double calcularPercentualDesconto(TipoCliente tipoCliente, double valorTotalPedido, String categoriaProduto) {
-        if (CATEGORIA_INSUMOS.equals(categoriaProduto)) {
+    switch (tipoCliente) {
+        case fga0242::model::COOPERADO:
+            return valorTotalPedido >= 100.0 ? 0.10 : 0.0;
+        case fga0242::model::ATACADO:
+            if (valorTotalPedido >= 500.0) {
+                return 0.15;
+            }
+            return valorTotalPedido >= 100.0 ? 0.05 : 0.0;
+        case fga0242::model::VAREJO:
+            bool elegivel = !(CATEGORIA_HORTIFRUTI.compare(categoriaProduto)) && valorTotalPedido >= 200.0;
+            return elegivel ? 0.05 : 0.0;
+        default:
             return 0.0;
-        }
-
-        switch (tipoCliente) {
-            case COOPERADO:
-                return valorTotalPedido >= 100.0 ? 0.10 : 0.0;
-            case ATACADO:
-                if (valorTotalPedido >= 500.0) {
-                    return 0.15;
-                }
-                return valorTotalPedido >= 100.0 ? 0.05 : 0.0;
-            case VAREJO:
-                boolean elegivel = CATEGORIA_HORTIFRUTI.equals(categoriaProduto) && valorTotalPedido >= 200.0;
-                return elegivel ? 0.05 : 0.0;
-            default:
-                return 0.0;
-        }
-    }
-
-    public boolean isElegivelParaDesconto(TipoCliente tipoCliente, double valorTotalPedido, String categoriaProduto) {
-        return calcularPercentualDesconto(tipoCliente, valorTotalPedido, categoriaProduto) > 0.0;
-    }
-
-    public double calcularValorComDesconto(TipoCliente tipoCliente, double valorTotalPedido, String categoriaProduto) {
-        double percentual = calcularPercentualDesconto(tipoCliente, valorTotalPedido, categoriaProduto);
-        return valorTotalPedido * (1 - percentual);
     }
 }
+
+bool AplicadorDesconto::isElegivelParaDesconto(fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, std::string &categoriaProduto) {
+    return calcularPercentualDesconto(tipoCliente, valorTotalPedido, categoriaProduto) > 0.0;
+}
+
+double AplicadorDesconto::calcularValorComDesconto( const fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, const std::string &categoriaProduto) {
+    double percentual = calcularPercentualDesconto(tipoCliente, valorTotalPedido, categoriaProduto);
+    return valorTotalPedido * (1 - percentual);
+}
+

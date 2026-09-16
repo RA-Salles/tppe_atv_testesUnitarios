@@ -4,6 +4,8 @@
 using namespace fga0242::model;
 
 namespace fga0242::service{
+    
+
     //take a look at the calc test example! We're using that as a base...
     class EstoqueInsuficienteException : public std::exception {
 
@@ -49,99 +51,34 @@ namespace fga0242::service{
             };
     };
 
+    class UnsupportedOperationException: std::exception {
+        std::string motivo;
+
+        public:
+            UnsupportedOperationException(std::string motivo): motivo{motivo}{};
+            const char *what(){
+                return motivo.c_str();
+            };
+    };
+
     class CalculadoraFrete {
-    private:
+        private:
 
-        static const double BASE_DF        = 8.0;
-        static const double BASE_GO        = 12.0;
-        static const double BASE_OUTROS    = 25.0;
+            static constexpr double BASE_DF        = 8.0;
+            static constexpr double BASE_GO        = 12.0;
+            static constexpr double BASE_OUTROS    = 25.0;
+            
+            static constexpr double TAXA_KG_DF     = 0.50;
+            static constexpr double TAXA_KG_GO     = 0.80;
+            static constexpr double TAXA_KG_OUTROS = 1.50;
+            
+            double menorDistancia(int origem, std::list<int> &restantes, std::vector<std::vector<double>> &distancias);
         
-        static const double TAXA_KG_DF     = 0.50;
-        static const double TAXA_KG_GO     = 0.80;
-        static const double TAXA_KG_OUTROS = 1.50;
-        //cool functions! but they'll not solve our problem...
-        //std::function<bool (std::string&, std::string&)> compare = [](std::string &a, std::string &b){ return std::strcmp(a.c_str(), b.c_str()) < 0;};
-        //const std::map<std::string, int, decltype(compare) > converter { {"DF", 1} , {"GO", 2} };
-;
-    /**
-     * Calcula o valor do frete a partir do peso total do pedido e da
-     * região de entrega.
-     */
-        double menorDistancia(int origem, std::list<int> restantes, std::vector<std::vector<double>> &distancias) {
-            if (restantes.empty()) {
-                return 0.0;
-            }
-            double menor = std::numeric_limits<double>::max();
-            int proximo;
-            std::list<int>::iterator it;
-            for (int i = 0; i < restantes.size(); i++) {
-                
-                //this is kind of complicated in cpp for a list type
-                //int proximo = restantes.get(i);
-                it = restantes.begin();
-                std::advance(it, i-1);
-                proximo = *it; //all that to get whatever is in i... 
-                
-                std::list<int> semProximo{restantes};
-                semProximo.remove(i);
-                double distancia = distancias[origem][proximo] + menorDistancia(proximo, semProximo, distancias);
-                menor = std::min(menor, distancia);
-            }
-            return menor;
-        }
-    public:
+        public:
+            
 
-        /*
-            This is  hard in cpp. The easiest way is an if else ladder 
-            using strcmp.
-
-            in a beautiful world, switch would work with std::string thingy.
-            It does not...
-        */
-        
-
-        double calcularFrete(double pesoTotalKg, std::string &regiao) {
-            if(!std::strcmp(regiao.c_str(), "DF")){
-                return BASE_DF + pesoTotalKg * TAXA_KG_DF;
-            } else if(!std::strcmp(regiao.c_str(), "DF")){
-                return BASE_GO + pesoTotalKg * TAXA_KG_GO;
-            } 
-            return BASE_OUTROS + pesoTotalKg * TAXA_KG_OUTROS;
-        }
-        
-        /* 
-        double calcularFrete(double pesoTotalKg, std::string &regiao) {
-            auto res = converter[regiao]; //fixme
-
-            switch (res) {
-                case "DF":
-                    return BASE_DF + pesoTotalKg * TAXA_KG_DF;
-                case "GO":
-                    return BASE_GO + pesoTotalKg * TAXA_KG_GO;
-                default:
-                    return BASE_OUTROS + pesoTotalKg * TAXA_KG_OUTROS;
-            }
-        }
-        */
-        /**
-         * Calcula a rota de entrega de menor distância total testando TODAS
-         * as permutações possíveis dos pontos de entrega (força bruta).
-         *
-         * ATENÇÃO PEDAGÓGICA: a complexidade deste método é O(n!). Ele é
-         * adequado apenas para pedidos com poucos pontos de entrega (na
-         * prática, cooperativas pequenas raramente entregam mais que 7-8
-         * pontos numa mesma rota). É exatamente esse tipo de método —
-         * correto, porém sensível ao tamanho da entrada — que justifica a
-         * existência de testes com timeout: eles funcionam como uma rede de
-         * segurança contra regressões de desempenho.
-         */
-        double calcularRotaMaisEconomica(std::list<std::string> pontosDeEntrega, std::vector<std::vector<double>> distancias) {
-            std::list<int> indices;
-            for (int i = 1; i < pontosDeEntrega.size(); i++) {
-                indices.emplace_back(i);
-            }
-            return menorDistancia(0, indices, distancias);
-        }
+            double calcularFrete(double pesoTotalKg, const std::string &regiao);
+            double calcularRotaMaisEconomica(std::list<std::string> pontosDeEntrega, std::vector<std::vector<double>> distancias);
 
     };
 
@@ -157,11 +94,11 @@ namespace fga0242::service{
          */
 
         public:
-            double calcularPercentualDesconto(fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, std::string &categoriaProduto);
+            double calcularPercentualDesconto(const fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, const std::string &categoriaProduto);
 
             bool isElegivelParaDesconto(fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, std::string &categoriaProduto);
 
-            double calcularValorComDesconto(fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, std::string categoriaProduto);
+            double calcularValorComDesconto(const fga0242::model::TipoCliente tipoCliente, double valorTotalPedido, const std::string &categoriaProduto);
     };
 
     class Estoque {
@@ -176,7 +113,7 @@ namespace fga0242::service{
          * Controla a quantidade disponível de cada produto no armazém
          * da cooperativa.
         */
-        void repor(Produto &produto, int quantidade) ;
+        void repor(Produto &produto, int quantidade);
         
         int consultarQuantidade(Produto &produto) {
             return quantidadesPorProduto[produto.getId()];
@@ -189,6 +126,52 @@ namespace fga0242::service{
          *         seja menor que a solicitada.
          */
         void reservar(Produto &produto, int quantidadeSolicitada) ;
+    };
+
+    class PedidoService {
+        private:
+            Estoque           estoque;
+            CalculadoraFrete  calculadoraFrete;
+            AplicadorDesconto aplicadorDesconto;
+
+            void validar(Pedido &pedido){
+                if (pedido.getCliente() == nullptr) {
+                    throw new PedidoInvalidoException("Pedido sem cliente associado");
+                }
+                if (pedido.getItens().empty()){
+                    throw new PedidoInvalidoException("Pedido sem itens");
+                }
+            }
+
+        public:
+            PedidoService() = default;
+
+            PedidoService(Estoque estoque, CalculadoraFrete calculadoraFrete, AplicadorDesconto aplicadorDesconto) {
+                this->estoque           = estoque           ;
+                this->calculadoraFrete  = calculadoraFrete  ;
+                this->aplicadorDesconto = aplicadorDesconto ;
+            } 
+
+            /**
+                Valida o pedido, reserva os itens no estoque e retorna o valor
+                final (produtos + frete - desconto).
+
+                @throws PedidoInvalidoException se o pedido não tiver itens ou
+                        não possuir cliente associado.
+                @throws EstoqueInsuficienteException se algum item não tiver
+                        quantidade suficiente em estoque.
+            */
+            double processar(Pedido &pedido);
+
+            /**
+             * TODO (funcionalidade futura - Sprint 5): implementar frete
+             * grátis para clientes ATACADO cujo valor total do pedido
+             * ultrapasse R$ 1000,00. Ainda não implementado.
+             */
+            double processarComFreteGratisAtacado(Pedido pedido) {
+                throw UnsupportedOperationException("Frete grátis para atacado ainda não implementado");
+            }
+
     };
 
 }

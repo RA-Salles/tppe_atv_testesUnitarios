@@ -162,7 +162,9 @@ Boost.test para a área de testes unitários.
 # Executando o projeto
 Nosso pacote depende da Standard Library, cujos arquivos estão presentes em qualquer instalação do g++, e da biblioteca Boost. Ademais, depende de uma instalação do make e cmake.
 
-Esse projeto possui compatibilidade apenas em um sistema Ubuntu 26.04, todavia, o autor especula que não possuirá problemas para ser compilado em qualquer sistema que tenha o g++. Instruções para instalação de outros sistemas não serão providas.
+Esse projeto possui compatibilidade apenas em um sistema Ubuntu 26.04, apesar de, como consta na licença, não possuir nenhuma garantia, todavia, o autor especula que não possuirá problemas para ser compilado em qualquer sistema que tenha o g++ ou um compilador cujas espeficações atendam ao c++20 ou superior. Instruções para instalação de outros sistemas não serão providas.
+
+Assume-se familiaridade com o gerenciador de pacotes APT.
 
 ## Instalando o g++
 
@@ -175,6 +177,8 @@ e, para confirmar correta instalação, execute:
 
 `g++ --version`
 
+cuja versão deverá ser ao menos a `15.2.0`.
+
 ## Instalando o Boost.test
 
 Como nosso projeto, que está dentro da pasta cpp/, utiliza a biblioteca Boost.test para escrita dos testes unitários, será necessário instalá-la como dependência. Execute:
@@ -183,7 +187,10 @@ Como nosso projeto, que está dentro da pasta cpp/, utiliza a biblioteca Boost.t
 
 Esse comando enfileirará para instalação demais depedências da biblioteca. 
 
-## Instalando 
+## Compilando
+
+
+
 
 # Arquitetura do problema
 

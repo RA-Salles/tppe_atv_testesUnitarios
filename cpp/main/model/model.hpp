@@ -1,7 +1,14 @@
-#include "TipoCliente.hpp"
+//#include "TipoCliente.hpp" //unused file kept for parity sake!
 #include "../common/imports.hpp"
 
+
 namespace fga0242::model{
+
+    enum TipoCliente {
+        COOPERADO,  // produtor associado à cooperativa
+        VAREJO,     // pequeno comerciante / consumidor final
+        ATACADO     // distribuidor / grande comprador
+    };
 
     class Cliente {
         private:
@@ -15,7 +22,7 @@ namespace fga0242::model{
         
             std::string getNome();
         
-            enum TipoCliente getTipo();
+            TipoCliente getTipo();
 
             Cliente& operator=(Cliente &outro);
     };
@@ -56,14 +63,14 @@ namespace fga0242::model{
 
     class Pedido {
         private:
-            Cliente cliente;
+            Cliente *cliente;
             std::list<ItemPedido> itens;
             std::string regiaoEntrega; // "DF", "GO", "OUTROS"
 
         public: 
             Pedido(Cliente &cliente, std::list<ItemPedido> &itens, std::string &regiaoEntrega);
 
-            Cliente getCliente();
+            Cliente *getCliente();
 
             const std::list<ItemPedido> getItens();
 

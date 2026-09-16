@@ -20,7 +20,7 @@ Produto::Produto():
     id           {""},
     nome         {""},
     categoria    {""},
-    precoUnitario{0},
+    precoUnitario{0} ,
     pesoKg       {0}{
 }
 
