@@ -117,6 +117,13 @@ namespace fga0242::service{
         */
         void repor(Produto &produto, int quantidade);
         
+        //other code was the dirtiest nastiest object oriented slop I've ever seen.
+        // ACCESS IT WITH OPERATOR[] AND BE DONE! BE... GONE!!
+
+        /*
+            interface of access to internal map. 
+            Accesses product's registered id.
+        */
         int consultarQuantidade(Produto &produto) {
             return quantidadesPorProduto[produto.getId()];
         }

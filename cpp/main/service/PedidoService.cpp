@@ -5,15 +5,6 @@ using namespace fga0242::service;
  * Orquestra o processamento de um pedido: validação, reserva de
  * estoque, cálculo de frete e aplicação de desconto.
  */
-
-void PedidoService::validar(Pedido &pedido){
-    if (pedido.getCliente() == nullptr) {
-        throw new PedidoInvalidoException("Pedido sem cliente associado");
-    }
-    if (pedido.getItens().empty()){
-        throw new PedidoInvalidoException("Pedido sem itens");
-    }
-}
  
 double PedidoService::processar(Pedido &pedido) {
     validar(pedido);

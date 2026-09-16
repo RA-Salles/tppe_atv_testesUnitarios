@@ -13,16 +13,6 @@ void Estoque::repor(Produto &produto, int quantidade) {
     }
 }
 
-//other code was the dirtiest nastiest object oriented slop I've ever seen.
-// ACCESS IT WITH OPERATOR[] AND BE DONE! BE... GONE!!
-
-/*
-    interface of access to internal map. 
-    Accesses product's registered id.
-*/
-int Estoque::consultarQuantidade(Produto &produto) {
-    return quantidadesPorProduto[produto.getId()];
-}
 
 /** 
 Reserva a quantidade solicitada de um produto para um pedido.
