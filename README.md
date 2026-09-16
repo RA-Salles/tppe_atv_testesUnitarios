@@ -17,6 +17,9 @@ Metadados:
 
 ---
 
+# Introdução
+
+wow, testes unitários em cpp? impensável!
 
 # Especificação da atividade:
 
