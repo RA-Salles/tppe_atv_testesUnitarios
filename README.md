@@ -164,7 +164,7 @@ Nosso pacote depende da Standard Library, cujos arquivos estão presentes em qua
 
 Esse projeto possui compatibilidade apenas em um sistema Ubuntu 26.04, apesar de, como consta na licença, não possuir nenhuma garantia, todavia, o autor especula que não possuirá problemas para ser compilado em qualquer sistema que tenha o g++ ou um compilador cujas espeficações atendam ao c++20 ou superior. Instruções para instalação de outros sistemas não serão providas.
 
-Assume-se familiaridade com o gerenciador de pacotes APT.
+Assume-se familiaridade com o gerenciador de pacotes APT. Assume-se que seu compilador favorito suporta o `#pragma once`
 
 ## Instalando o g++
 
