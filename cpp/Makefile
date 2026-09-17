@@ -17,7 +17,9 @@ TARGET_DEL = app
 
 OBJS = ./obj/app.o ./obj/client.o ./obj/item.o ./obj/order.o ./obj/product.o ./obj/discount.o ./obj/calc.o ./obj/stock.o ./obj/stockexc.o ./obj/orderexc.o ./obj/orderservice.o
 
-all: setup app clear
+all: setup app
+
+all_tests: lentos rapidos example
 
 app: obj 
 	$(CXX) $(CXXFLAGS) -o app $(OBJS)
@@ -63,14 +65,24 @@ orderexc.o: setup ./main/service/PedidoInvalidoException.cpp
 orderservice.o: setup ./main/service/PedidoService.cpp
 	$(CXX) $(CXXFLAGS) -c ./main/service/PedidoService.cpp -o ./obj/orderservice.o
 
+# tests
+lentos: setup obj 
+	$(CXX) $(CXXFLAGS) ./test/categorias/TestesLentos.cpp ./obj/* -o ./lentos
+
+rapidos: setup obj
+	$(CXX) $(CXXFLAGS) ./test/categorias/TestesRapidos.cpp ./obj/* -o ./rapidos
+
+exemplo: setup obj
+	$(CXX) $(CXXFLAGS) ./test/service/ExemploEstiloTest.cpp ./obj/* -o ./exemplo_teste
+
+	
+
+#cleanup
 clear: 
 	rm -r obj
 
 clean:
 	rm app
 
-
-
-#FUCKING BLACKMAGIC! which doesn't quite work...
 
 
