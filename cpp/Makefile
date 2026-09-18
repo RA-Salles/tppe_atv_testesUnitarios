@@ -29,6 +29,9 @@ setup:
 
 obj: setup app.o client.o item.o order.o product.o discount.o calc.o stock.o stockexc.o orderexc.o orderservice.o
 
+t_obj: setup client.o item.o order.o product.o discount.o calc.o stock.o stockexc.o orderexc.o orderservice.o
+
+
 #main object
 app.o: setup ./main/App.cpp
 	$(CXX) $(CXXFLAGS) -c ./main/App.cpp -o ./obj/app.o
@@ -66,13 +69,13 @@ orderservice.o: setup ./main/service/PedidoService.cpp
 	$(CXX) $(CXXFLAGS) -c ./main/service/PedidoService.cpp -o ./obj/orderservice.o
 
 # tests
-lentos: setup obj 
+lentos: setup t_obj 
 	$(CXX) $(CXXFLAGS) ./test/categorias/TestesLentos.cpp ./obj/* -o ./lentos
 
-rapidos: setup obj
+rapidos: setup t_obj
 	$(CXX) $(CXXFLAGS) ./test/categorias/TestesRapidos.cpp ./obj/* -o ./rapidos
 
-exemplo: setup obj
+example: setup t_obj
 	$(CXX) $(CXXFLAGS) ./test/service/ExemploEstiloTest.cpp ./obj/* -o ./exemplo_teste
 
 	
@@ -82,7 +85,7 @@ clear:
 	rm -r obj
 
 clean:
-	rm app
+	rm app lentos rapidos exemplo
 
 
 
