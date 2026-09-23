@@ -5,22 +5,121 @@
 #include <boost/test/data/monomorphic.hpp>   // we use this to define datasets
 
 #include "../../main/service/service.hpp" // and this so we have imports, classes, definitions etc. from the tested system!
-
+#include "../../main/common/imports.hpp"
 namespace utf = boost::unit_test; //you need this else the compiler will complain because 
+using namespace fga0242::service;
 
-struct F {
-  F()  { BOOST_TEST_MESSAGE( "setup fixture" ); }
-  ~F() { BOOST_TEST_MESSAGE( "teardown fixture" ); }
+double const comparisonDelta = 1e-6;
+
+//that setup step inside the OG .java actually needs a fixture. So we'll do just that :)
+struct productFixture1 {
+    Produto *p;
+    //this mimicks the Produto() initializer...
+    //BEWARE:
+    //FORGETTING TO PASS A VALID ID !WILL!
+    //USE THE NO ARGUMENT CONSTRUCTOR
+    // inshallah
+    productFixture1(std::string id = "", std::string name = "", std::string type = "", double price = 0, double weight = 0 ){ 
+        BOOST_TEST_MESSAGE( "setting up product fixture :)" );
+        if(id.size())
+            p = new Produto();
+        else
+            p = new Produto(id, name, type, price, weight);
+    }
+    ~productFixture1(){
+        BOOST_TEST_MESSAGE( "killing product >:" ); 
+        delete p;
+    }
 };
 
-//create a suite for your module...git 
-BOOST_AUTO_TEST_SUITE(suiteExemplo, * utf::fixture<F>())
+struct productFixture2 {
+    Produto *p;
+    //this mimicks the Produto() initializer...
+    productFixture2(std::string id = "P001", std::string name = "Tomate", std::string type = "HORTIFRUTI", double price = 1, double weight = 4.5 ){ 
+        BOOST_TEST_MESSAGE( "setting up product fixture :)" );
+        p = new Produto(id, name, type, price, weight);
+    
+    }
+    ~productFixture2(){
+        BOOST_TEST_MESSAGE( "killing product >:" ); 
+        delete p;
+    }
+};
 
-    BOOST_AUTO_TEST_CASE(test_case1){
-        BOOST_TEST_MESSAGE("running test_case1");
-        BOOST_TEST(true);
+struct productFixture3 {
+    Produto *p;
+    //this mimicks the Produto() initializer...                 //can't use the ã else I'll pay.
+    productFixture3(std::string id = "P002", std::string name = "Melao", std::string type = "HORTIFRUTI", double price = 0, double weight = 0 ){ 
+        BOOST_TEST_MESSAGE( "setting up product fixture :)" );
+        p = new Produto(id, name, type, price, weight);
+    
+    }
+    ~productFixture3(){
+        BOOST_TEST_MESSAGE( "killing product >:" ); 
+        delete p;
+    }
+};
+
+struct itemOrderFixture {
+    Produto *p;
+    ItemPedido *ip;
+    //this mimicks the Produto() initializer...                 
+    itemOrderFixture(std::string id = "P003", std::string name = "Biscoito Negesseco", std::string type = "BISCOITO", double price = 4.5, double weight = 1.0 ){ 
+        BOOST_TEST_MESSAGE( "setting up product fixture :)" );
+        p = new Produto(id, name, type, price, weight);
+        ip = new ItemPedido(*p, 3); //gotta watch out for those damn pointers.
+    }
+    ~itemOrderFixture(){
+        BOOST_TEST_MESSAGE( "killing product >:" ); 
+        delete p;
+        delete ip;
+    }
+};
+
+
+
+//create a suite for your module...
+
+//watch out! Since this is basically a bunch of poorly disguised macros, 
+//you'll program with your tabs or you'll lose sense of what the fuck
+//is going on!
+
+/*
+    This suite should test the product methods. 
+    Every
+        method!
+
+    
+*/
+BOOST_AUTO_TEST_SUITE(suiteProduto) //correct way would be to pass the fixture as a suite scope fixture.
+    //then, create test cases!
+    BOOST_FIXTURE_TEST_CASE(testProductInitialization, productFixture1){ //OK!
+        BOOST_TEST_MESSAGE("TESTING FOR DEFAULT INITIALIZATION OF PRODUCT..."); //say something!
+
+        //let's see if initialization passed alright...
+        BOOST_TEST(p->getId() == ""); //then assert stuff...
+        BOOST_TEST(p->getCategoria() == ""); //then assert stuff...
+        BOOST_TEST(p->getPesoKg() - 0.0 <= comparisonDelta ); //then assert stuff...
+        BOOST_TEST(p->getPrecoUnitario() - 0.0 <= comparisonDelta); //then assert stuff...
+
     }
 
+    BOOST_FIXTURE_TEST_CASE(testProductSpecifiedInitialization, productFixture2){
+        BOOST_TEST_MESSAGE("TESTING FOR p->Product(...)"); //say something!
+        //str asserts
+        BOOST_TEST(!std::strcmp(p->getId()       .c_str() , "P001"      )); 
+        BOOST_TEST(!std::strcmp(p->getCategoria().c_str() , "HORTIFRUTI")); 
+        BOOST_TEST(!std::strcmp(p->getNome()     .c_str() , "Tomate"    )); 
+        //double asserts
+        BOOST_TEST(p->getPesoKg()        - 4.5 <= comparisonDelta );                
+        BOOST_TEST(p->getPrecoUnitario() - 1   <= comparisonDelta );            
+    }
 
+    BOOST_FIXTURE_TEST_CASE(testProductSubtotal, itemOrderFixture){
+        BOOST_TEST_MESSAGE("TESTING FOR itemPedido::getSubtotal()");
+        //itemOrder created during fixture constructor, so we're all good!
+        double subtotal = ip->getSubtotal();
+        BOOST_TEST(subtotal - 13.50 <= comparisonDelta);
+    }
 
 BOOST_AUTO_TEST_SUITE_END()
