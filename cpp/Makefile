@@ -19,7 +19,7 @@ OBJS = ./obj/app.o ./obj/client.o ./obj/item.o ./obj/order.o ./obj/product.o ./o
 
 all: setup app
 
-all_tests: lentos rapidos example
+all_tests: lentos rapidos example apptest
 
 app: obj 
 	$(CXX) $(CXXFLAGS) -o app $(OBJS)
@@ -78,14 +78,15 @@ rapidos: setup t_obj
 example: setup t_obj
 	$(CXX) $(CXXFLAGS) ./test/service/ExemploEstiloTest.cpp ./obj/* -o ./exemplo_teste
 
-	
+apptest:
+	$(CXX) $(CXXFLAGS) ./test/AppTest.cpp -o ./apptest
 
 #cleanup
 clear: 
 	rm -r obj
 
 clean:
-	rm app lentos rapidos exemplo
+	rm app lentos rapidos exemplo_teste apptest
 
 
 
