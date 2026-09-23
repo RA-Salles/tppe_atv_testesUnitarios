@@ -21,6 +21,10 @@ Metadados:
 
 wow, testes unitários em cpp? impensável!
 
+Warning: part of the commentary and documentation will be in English. I refuse to 
+rewrite whatever in Portuguese. Sometimes, something just clicks better in English and
+I plan to keep it this way.
+
 # Especificação da atividade:
 
 ### Atividade extra-classe -- Testes Unitários com JUnit4
@@ -205,12 +209,40 @@ e, para o exemplo,
 `cmake`
 `make`
 
-
 # Arquitetura do problema
 
+Essa seção apresenta breves comentários sobre como a resolução foi elaborada, servindo como uma espécie de devlog.
+
 ## Sistema de módulos
+
 Inicialmente, nosso plano seria utilizar a funcionalidade de módulos do cpp, mas isso exigiria compreender o mínimo de como utilizá-la e as restrições de tempo não permitem esse feito.
 Ademais, as explicações encontradas na referência da linguagem e exemplos da internet não foram muito esclarecedores de como corretamente utilizar o sistema.
 
-Portanto, nossa solução de importação será utilizar o sistema de headers. 
+Portanto, nossa solução de importação será utilizar o sistema de headers e descrever os `.hpp` na mão, o que não é de todo ruim.
+
+Com as classes e namespaces definidos, poderemos importá-los nos programas de testes.
+
+## Suites
+
+O sistema da boost para testes trabalha com três abstrações para organização:
+
+- suite master
+- suite
+- caso de teste
+  - asserções
+
+Problemáticamente, exige uma quantidade considerável de conhecimento acerca dos testes para organizá-los em funções com asserções em arquivos separados e posteriormente importá-los em um único arquivo organizando a master.
+
+Vamos ter mais de uma master, portanto. Isso deve facilitar a escrita dos testes.
+
+## Resolvendo o R4
+
+A especificação desse teste exige implementar um timeout para realização do teste. Felizmente, a Boost.test possui uma funcionalidade para isso, cuja documentação está disponível [aqui](https://www.boost.org/doc/libs/latest/libs/test/doc/html/boost_test/testing_tools/timeout.html).
+
+
+
+
+
+
+
 
