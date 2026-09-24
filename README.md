@@ -19,11 +19,15 @@ Metadados:
 
 # Introdução
 
-wow, testes unitários em cpp? impensável!
+"Wow, testes unitários em C++? Impensável!"
 
 Warning: part of the commentary and documentation will be in English. I refuse to 
 rewrite whatever in Portuguese. Sometimes, something just clicks better in English and
 I plan to keep it this way.
+
+The initial code for agrocoop, which this project aims to rewrite and test, was graciously provided by [PhD. Professor André Luiz Peron Lanna](https://github.com/andrelanna) in his repository [FGA0242 TPPE - Programming Techniques for Emerging Platforms](https://github.com/andrelanna/fga0242/tree/master/ativsExtraClasse/testesUnitarios) and I've took the administrative decision to include his original code inside the folder java, therefore assuming the provided initial code is free software or, at the very least, this decision is considered FAIR USE.
+
+As such, this project is licensed as free code, as well. In case the author of this project has, by misadventure, created a clash of licensing and red tape, please, sue his @$$ and drag him to court. Good Luck! Thank you for attending my TED Talk.
 
 # Especificação da atividade:
 
