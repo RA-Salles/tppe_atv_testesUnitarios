@@ -1,8 +1,6 @@
 //Esse arquivo apresenta um teste que passa
 #define BOOST_TEST_MODULE testes_lentos
-#include <boost/test/included/unit_test.hpp> // essa é a importação mais básica
-#include <boost/test/data/test_case.hpp>     // and this to get the parametric test define
-#include <boost/test/data/monomorphic.hpp>   // we use this to define datasets
+#include "./common/imports.hpp"
 
 
 //This type of macro does generate some kind of strangement 

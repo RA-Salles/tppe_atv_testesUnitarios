@@ -1,9 +1,27 @@
-#define BOOST_TEST_MODULE testes lentos
-#include <boost/test/included/unit_test.hpp> //this is the most basic
-#include <boost/test/data/test_case.hpp>     // and this to get the parametric test define
-#include <boost/test/data/monomorphic.hpp>   // we use this to define datasets
+/*
+    SLOW TEST MODULE FOR AGROCOOP EXAMPLE PROJECT
+        written by Locvst, the Eater.
+            "Took me long enough, but the required modules
+            are finally rewritten in cpp. Maybe I'll rewrite
+            it in C, as Ritchie intended, later..."
+        20260924
 
-BOOST_AUTO_TEST_SUITE(testes)
+    TODOLIST:
+        name suites and test cases according to specification.
+        devise tests
+        add timeouts 
+        profit!
+
+
+    PURPOSE:
+
+*/
+
+#define BOOST_TEST_MODULE testes lentos
+#include "../common/imports.hpp"
+
+
+BOOST_AUTO_TEST_SUITE(RENAME_ME__REMEMBER_ME)
 
 
 BOOST_AUTO_TEST_SUITE_END()

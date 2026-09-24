@@ -160,6 +160,6 @@ BOOST_AUTO_TEST_SUITE(suiteProduto) //correct way would be to pass the fixture a
         BOOST_TEST( std::strcmp(p.getNome()      .c_str(), name.c_str()) == 0 ); 
         BOOST_TEST( p.getPesoKg()        - weight <= comparisonDelta ); 
         BOOST_TEST( p.getPrecoUnitario() - price  <= comparisonDelta ); 
-
     }
+    
 BOOST_AUTO_TEST_SUITE_END()
