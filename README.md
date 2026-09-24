@@ -239,6 +239,12 @@ Vamos ter mais de uma master, portanto. Isso deve facilitar a escrita dos testes
 
 A especificação desse teste exige implementar um timeout para realização do teste. Felizmente, a Boost.test possui uma funcionalidade para isso, cuja documentação está disponível [aqui](https://www.boost.org/doc/libs/latest/libs/test/doc/html/boost_test/testing_tools/timeout.html).
 
+## Parametrização de Fixtures
+
+Ao contrário da JUnit, a Boost test necessita de uma struct que será passada como argumento dos testes para corretamente isolar objetos entre os testes. 
+
+Problematicamente, isso dificulta a parametrização dos construtores e automatização de testes com fixtures, exigindo um overhead de escrita das fixtures.
+
 
 
 
