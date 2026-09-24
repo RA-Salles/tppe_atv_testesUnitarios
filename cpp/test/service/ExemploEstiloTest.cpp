@@ -115,11 +115,51 @@ BOOST_AUTO_TEST_SUITE(suiteProduto) //correct way would be to pass the fixture a
         BOOST_TEST(p->getPrecoUnitario() - 1   <= comparisonDelta );            
     }
 
-    BOOST_FIXTURE_TEST_CASE(testProductSubtotal, itemOrderFixture){
+    // BY THE LORD, I CANNOT FATHOM THE JOY OF KNOWING THIS ACTUALLY WORKS!
+    
+    BOOST_FIXTURE_TEST_CASE(testItemOrder_Subtotal, itemOrderFixture){
         BOOST_TEST_MESSAGE("TESTING FOR itemPedido::getSubtotal()");
         //itemOrder created during fixture constructor, so we're all good!
-        double subtotal = ip->getSubtotal();
+        double subtotal = ip->getSubtotal(); //great stuff!
         BOOST_TEST(subtotal - 13.50 <= comparisonDelta);
     }
 
+    BOOST_FIXTURE_TEST_CASE(testItemOrder_getQuantidade, itemOrderFixture){
+        //as with fixtures, we're dealing with a pointer to an outerworldly
+        //ghoulish hellish object...
+        //We should use protection
+        BOOST_TEST(ip != nullptr);
+        //then we're set!
+        BOOST_TEST_MESSAGE("TESTING FOR itemPedido::getQuantidade()");
+        int qt = ip->getQuantidade();
+        //equalshmmmm?
+        BOOST_TEST(!(qt - 3));
+    }
+
+    BOOST_FIXTURE_TEST_CASE(testItemOrder_getPesoTotal, itemOrderFixture){
+        BOOST_TEST(ip != nullptr);
+        BOOST_TEST_MESSAGE("TESTING FOR itemPedido::getPesoTotal()");
+        double wt = ip->getPesoTotal();
+        BOOST_TEST(wt - 3.0 <= comparisonDelta);
+    }
+
+    // This also passed..
+    BOOST_FIXTURE_TEST_CASE(testItemOrder_getProduto, itemOrderFixture){
+        BOOST_TEST_MESSAGE("TESTING FOR itemPedido::getProduto()");
+        //Product p and itemProduct
+        Produto p = ip->getProduto();
+        BOOST_TEST( &p != nullptr);
+        //this is the s
+        std::string id   = "P003"               ;
+        std::string name = "Biscoito Negesseco" ;
+        std::string type = "BISCOITO"           ;
+        double price     = 4.5                  ;
+        double weight    = 1.0                  ;
+        BOOST_TEST( std::strcmp(p.getId()        .c_str(), id  .c_str()) == 0 );
+        BOOST_TEST( std::strcmp(p.getCategoria() .c_str(), type.c_str()) == 0 ); 
+        BOOST_TEST( std::strcmp(p.getNome()      .c_str(), name.c_str()) == 0 ); 
+        BOOST_TEST( p.getPesoKg()        - weight <= comparisonDelta ); 
+        BOOST_TEST( p.getPrecoUnitario() - price  <= comparisonDelta ); 
+
+    }
 BOOST_AUTO_TEST_SUITE_END()

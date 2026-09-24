@@ -32,12 +32,14 @@ namespace fga0242::model{
     
 
     class Produto {
+        
         private:
             std::string id;
             std::string nome;
             std::string categoria; // "HORTIFRUTI", "GRAOS", "LATICINIOS", "INSUMOS"
             double precoUnitario;
             double pesoKg;
+
         public:
             Produto();
             Produto(std::string &id, std::string &nome, std::string &categoria, double precoUnitario, double pesoKg);
